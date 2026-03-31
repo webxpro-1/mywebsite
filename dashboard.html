@@ -132,20 +132,33 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+/* 🔥 FIX ADDED */
+let checked = false;
+
 onAuthStateChanged(auth, (user) => {
+
   if (user) {
     document.getElementById("userEmail").innerText = user.email;
-  } else {
-    window.location.href = "login.html";
   }
+
+  else if (!checked) {
+    checked = true;
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 1000);
+  }
+
 });
 
+/* Logout */
 window.logout = function(){
   signOut(auth).then(()=>{
     window.location.href="login.html";
   });
 }
 
+/* Admin */
 window.goAdmin = function(){
   window.location.href = "admin.html";
 }
