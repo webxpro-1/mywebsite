@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | DevSalman</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(-45deg,#0f172a,#1e293b,#020617,#0f172a);
+  background-size:400% 400%;
+  animation:gradient 10s ease infinite;
+  color:white;
+  text-align:center;
+  padding:50px;
+}
+
+@keyframes gradient{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+h1{
+  background:linear-gradient(45deg,#00f5a0,#00d9f5);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+input{
+  width:80%;
+  max-width:300px;
+  padding:12px;
+  margin:10px;
+  border-radius:10px;
+  border:none;
+}
+
+button{
+  padding:12px 20px;
+  background:linear-gradient(45deg,#00f5a0,#00d9f5);
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 10px #00f5a0;
+}
+
+a{
+  color:#00f5a0;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Welcome Back 👋</h1>
+
+<input type="email" id="email" placeholder="Enter Email" required><br>
+<input type="password" id="password" placeholder="Enter Password" required><br>
+
+<button onclick="login()">Login</button>
+
+<p>Don't have account? <a href="signup.html">Signup</a></p>
+
+<!-- 🔥 FIREBASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDIrkOQZ-nkW7rXggS5bo3FeUKNSZSGAZY",
+  authDomain: "devsalman-1accf.firebaseapp.com",
+  projectId: "devsalman-1accf"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = function(){
+
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("password").value;
+
+  if(email === "" || pass === ""){
+    alert("Please fill all fields");
+    return;
+  }
+
+  signInWithEmailAndPassword(auth, email, pass)
+  .then(() => {
+    alert("Login Success 🚀");
+    window.location.href = "dashboard.html";
+  })
+  .catch(err => {
+    alert("Login Failed ❌\n" + err.message);
+  });
+
+}
+
+</script>
+
+</body>
+</html>
