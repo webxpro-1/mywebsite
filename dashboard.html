@@ -131,6 +131,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+  /* 🔥 MAIN FIX (MOST IMPORTANT) */
+setPersistence(auth, browserLocalPersistence);
+  
 /* 🔥 MAIN FIX */
 onAuthStateChanged(auth, (user) => {
 
