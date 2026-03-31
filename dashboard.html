@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | DevSalman</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#020617;
+  color:white;
+}
+
+/* Navbar */
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  background:#0f172a;
+}
+
+.nav h2{
+  background:linear-gradient(45deg,#00f5a0,#00d9f5);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Container */
+.container{
+  text-align:center;
+  padding:30px;
+}
+
+/* Cards */
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.card{
+  background:#1e293b;
+  margin:15px;
+  padding:20px;
+  border-radius:15px;
+  width:220px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00f5a0;
+}
+
+/* Buttons */
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  margin:5px;
+}
+
+.logout{
+  background:red;
+  color:white;
+}
+
+.admin{
+  background:#00f5a0;
+  color:black;
+}
+
+/* Email */
+.email{
+  color:#38bdf8;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="nav">
+  <h2>Dashboard 🚀</h2>
+  <div>
+    <button class="admin" onclick="goAdmin()">Admin</button>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="container">
+
+<h1>Welcome 👋</h1>
+<p id="userEmail" class="email">Loading...</p>
+
+<div class="cards">
+
+<div class="card">
+<h3>Profile</h3>
+<p>User account details</p>
+</div>
+
+<div class="card">
+<h3>Projects</h3>
+<p>Your websites</p>
+</div>
+
+<div class="card">
+<h3>Upgrade</h3>
+<p>Premium features</p>
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDIrk0QZ-nkW7rXggS5bo3FeUKNSZSGAZY",
+  authDomain: "devsalman-1accf.firebaseapp.com",
+  projectId: "devsalman-1accf"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("userEmail").innerText = user.email;
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+window.logout = function(){
+  signOut(auth).then(()=>{
+    window.location.href="login.html";
+  });
+}
+
+window.goAdmin = function(){
+  window.location.href = "admin.html";
+}
+
+</script>
+
+</body>
+</html>
