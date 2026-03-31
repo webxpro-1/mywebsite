@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+
+<style>
+body{
+  background:#020617;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+}
+
+h1{
+  color:#00f5a0;
+}
+
+.user{
+  background:#1e293b;
+  margin:10px;
+  padding:15px;
+  border-radius:10px;
+}
+
+button{
+  padding:5px 10px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.delete{
+  background:red;
+  color:white;
+}
+
+.logout{
+  background:#00f5a0;
+  color:black;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Admin Panel 👑</h1>
+<button class="logout" onclick="logout()">Logout</button>
+
+<h3 id="total">Total Users: 0</h3>
+<div id="users"></div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDIrk0QZ-nkW7rXggS5bo3FeUKNSZSGAZY",
+  authDomain: "devsalman-1accf.firebaseapp.com",
+  projectId: "devsalman-1accf"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const usersDiv = document.getElementById("users");
+
+/* 🔐 ADMIN CHECK */
+onAuthStateChanged(auth, (user) => {
+  if (!user || user.email !== "webcreatorgit.27@gmail.com") {
+    alert("Access Denied ❌");
+    window.location.href = "dashboard.html";
+  }
+});
+
+/* LOAD USERS */
+async function loadUsers(){
+  usersDiv.innerHTML = "";
+
+  const snap = await getDocs(collection(db,"users"));
+
+  document.getElementById("total").innerText =
+    "Total Users: " + snap.size;
+
+  snap.forEach(docSnap => {
+    let div = document.createElement("div");
+    div.className = "user";
+
+    div.innerHTML = `
+      <p>${docSnap.data().email}</p>
+      <button class="delete" onclick="deleteUser('${docSnap.id}')">Delete</button>
+    `;
+
+    usersDiv.appendChild(div);
+  });
+}
+
+/* DELETE USER */
+window.deleteUser = async function(id){
+  await deleteDoc(doc(db,"users",id));
+  alert("User deleted");
+  loadUsers();
+}
+
+/* LOGOUT */
+window.logout = function(){
+  signOut(auth).then(()=>{
+    window.location.href="login.html";
+  });
+}
+
+loadUsers();
+
+</script>
+
+</body>
+</html>
