@@ -87,6 +87,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+  /* 🔥 MAIN FIX (MOST IMPORTANT) */
+setPersistence(auth, browserLocalPersistence);
+  
 window.login = function(){
 
   let email = document.getElementById("email").value;
@@ -99,7 +102,6 @@ window.login = function(){
 
   signInWithEmailAndPassword(auth, email, pass)
   .then(() => {
-    alert("Login Success 🚀");
     window.location.href = "dashboard.html";
   })
   .catch(err => {
