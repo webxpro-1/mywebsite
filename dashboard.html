@@ -87,8 +87,8 @@ button{
 <div class="nav">
   <h2>Dashboard 🚀</h2>
   <div>
-    <button class="admin" onclick="goAdmin()">Admin</button>
-    <button class="logout" onclick="logout()">Logout</button>
+    <button class="admin" id="adminBtn">Admin</button>
+<button class="logout" id="logoutBtn">Logout</button>⅘
   </div>
 </div>
 
@@ -151,14 +151,14 @@ onAuthStateChanged(auth, (user) => {
 });
 
 /* logout */
-window.logout = function(){
+document.getElementById("logoutBtn").addEventListener("click", () => {
   signOut(auth).then(()=>{
-    window.location.href="login.html";
+    window.location.href = "login.html";
   });
-}
+});
 
-window.goAdmin = function(){
+document.getElementById("adminBtn").addEventListener("click", () => {
   window.location.href = "admin.html";
-}
+});
 
 </script>
