@@ -21,6 +21,67 @@ body {
   animation: gradient 10s ease infinite;
   color: white;
 }
+/* Top buttons */
+.top-btns{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+.btn{
+  padding:12px 20px;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+  width:200px;
+}
+
+/* Hover effect */
+.btn:hover{
+  transform:scale(1.08);
+}
+
+/* Signup / Login */
+.signup{
+  background:#38bdf8;
+  color:black;
+}
+
+.login{
+  background:#00f5a0;
+  color:black;
+}
+
+/* Social layout */
+.social{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+}
+
+/* WhatsApp */
+.whatsapp{
+  background:#25D366;
+  color:black;
+  box-shadow:0 0 15px #25D366;
+}
+
+/* Telegram */
+.telegram{
+  background:#0088cc;
+  color:white;
+  box-shadow:0 0 15px #0088cc;
+}
+
+/* Instagram */
+.instagram{
+  background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+  color:white;
+  box-shadow:0 0 15px #d62976;
+}
 
 /* 🎨 Gradient Animation */
 @keyframes gradient {
@@ -127,18 +188,39 @@ footer {
 
 <!-- Hero -->
 <div class="hero">
+
 <h1 id="typing"></h1>
 <p>Professional Web Developer 🚀</p>
-<button onclick="whatsapp()">WhatsApp</button>
-<button onclick="telegram()">Telegram</button>
-<button onclick="go('login.html')">Login</button>
-<button onclick="go('signup.html')">Signup</button>
+
+<!-- Top buttons -->
+<div class="top-btns">
+  <button class="btn signup" onclick="go('signup.html')">Signup</button>
+  <button class="btn login" onclick="go('login.html')">Login</button>
+</div>
+
+<br><br>
+
+<!-- Social buttons -->
+<div class="social">
+
+  <button class="btn whatsapp" onclick="whatsapp()">
+    📱 WhatsApp
+  </button>
+
+  <button class="btn telegram" onclick="telegram()">
+    ✈️ Telegram
+  </button>
+
+  <button class="btn instagram" onclick="instagram()">
+    📸 Instagram
+  </button>
+
 </div>
 
 <!-- About -->
 <section id="about" class="hero">
 <h2>About Me</h2>
-<p>I am a professional web developer skilled in HTML, CSS, JavaScript and Python. I create modern and fast websites.</p>
+<p>I am Salman, a professional web developer skilled in HTML, CSS, JavaScript and Python. I create modern and fast websites.</p>
 </section>
 
 <!-- Services -->
@@ -181,6 +263,7 @@ footer {
 <footer>
 <p>© 2026 Dev.Salman</p>
 <p>Telegram: @unknown_27_7</p>
+<p>Instagram: Salmanraza.md</p>
 </footer>
 
 <!-- JS -->
@@ -206,6 +289,10 @@ function whatsapp(){
 
 function telegram(){
   window.open("https://t.me/unknown_27_7");
+}
+
+function instagram(){
+  window.open("https://instagram.com/Salmanraza.md");
 }
 
 function go(page){
