@@ -13,7 +13,6 @@ body{
   color:white;
 }
 
-/* Navbar */
 .nav{
   display:flex;
   justify-content:space-between;
@@ -28,13 +27,11 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
-/* Container */
 .container{
   text-align:center;
   padding:30px;
 }
 
-/* Cards */
 .cards{
   display:flex;
   flex-wrap:wrap;
@@ -55,7 +52,6 @@ body{
   box-shadow:0 0 15px #00f5a0;
 }
 
-/* Buttons */
 button{
   padding:10px 15px;
   border:none;
@@ -74,7 +70,6 @@ button{
   color:black;
 }
 
-/* Email */
 .email{
   color:#38bdf8;
   margin-top:10px;
@@ -88,7 +83,7 @@ button{
   <h2>Dashboard 🚀</h2>
   <div>
     <button class="admin" id="adminBtn">Admin</button>
-<button class="logout" id="logoutBtn">Logout</button>⅘
+    <button class="logout" id="logoutBtn">Logout</button>
   </div>
 </div>
 
@@ -117,6 +112,7 @@ button{
 </div>
 
 </div>
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
@@ -131,26 +127,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-  /* 🔥 MAIN FIX (MOST IMPORTANT) */
-setPersistence(auth, browserLocalPersistence);
-  
-/* 🔥 MAIN FIX */
+/* 🔥 AUTH CHECK */
 onAuthStateChanged(auth, (user) => {
-
   if (user) {
     document.getElementById("userEmail").innerText = user.email;
   } else {
-    // ⏳ wait before redirect
     setTimeout(() => {
       if (!auth.currentUser) {
         window.location.href = "login.html";
       }
     }, 1500);
   }
-
 });
 
-/* logout */
+/* 🔥 BUTTON FIX */
 document.getElementById("logoutBtn").addEventListener("click", () => {
   signOut(auth).then(()=>{
     window.location.href = "login.html";
@@ -162,3 +152,6 @@ document.getElementById("adminBtn").addEventListener("click", () => {
 });
 
 </script>
+
+</body>
+</html>
